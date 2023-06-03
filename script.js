@@ -13,46 +13,6 @@ firebase.initializeApp(firebaseConfig);
 // Obtenha uma referência para o serviço de autenticação do Firebase
 var auth = firebase.auth();
 
-// Elementos da página
-var loginEmailField = document.getElementById('loginEmail');
-var loginPasswordField = document.getElementById('loginPassword');
-var loginButton = document.getElementById('loginButton');
-
-var registerEmailField = document.getElementById('registerEmail');
-var registerPasswordField = document.getElementById('registerPassword');
-var registerButton = document.getElementById('registerButton');
-
-// Evento de login
-loginButton.addEventListener('click', function() {
-  var email = loginEmailField.value;
-  var password = loginPasswordField.value;
-
-  auth.signInWithEmailAndPassword(email, password)
-    .then(function() {
-      alert('Login bem-sucedido!');
-      // Redirecionar para a página de jogo, por exemplo
-    })
-    .catch(function(error) {
-      alert('Erro no login: ' + error.message);
-    });
-});
-
-// Evento de registro
-registerButton.addEventListener('click', function() {
-  var email = registerEmailField.value;
-  var password = registerPasswordField.value;
-
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(function() {
-      alert('Registro bem-sucedido!');
-      // Redirecionar para a página de jogo, por exemplo
-    })
-    .catch(function(error) {
-      alert('Erro no registro: ' + error.message);
-    });
-});
-
-
 // Verifica se o usuário está autenticado ao carregar a página
 window.addEventListener('load', function() {
   if (isUserAuthenticated()) {
@@ -69,10 +29,36 @@ function isUserAuthenticated() {
 
 // Função para exibir a página do jogo
 function showGamePage() {
-  // Ocultar elementos de login e registro
-  document.getElementById('loginForm').style.display = 'none';
-  document.getElementById('registerForm').style.display = 'none';
-
-  // Exibir a página do jogo
-  document.getElementById('gamePage').style.display = 'block';
+  document.getElementById('loginRegisterSection').style.display = 'none';
+  document.getElementById('gameSection').style.display = 'block';
 }
+
+// Manipulador de evento para o envio do formulário de login
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Evita o envio do formulário (comportamento padrão)
+
+  // Obtenha os valores dos campos de entrada de e-mail e senha
+  var email = document.getElementById('loginEmail').value;
+  var password = document.getElementById('loginPassword').value;
+
+  // Execute a lógica de autenticação aqui
+  // Por exemplo, faça uma solicitação AJAX para um endpoint de autenticação no servidor
+
+  // Após a autenticação bem-sucedida, chame a função showGamePage()
+  showGamePage();
+});
+
+// Manipulador de evento para o envio do formulário de registro
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Evita o envio do formulário (comportamento padrão)
+
+  // Obtenha os valores dos campos de entrada de e-mail e senha
+  var email = document.getElementById('registerEmail').value;
+  var password = document.getElementById('registerPassword').value;
+
+  // Execute a lógica de registro aqui
+  // Por exemplo, faça uma solicitação AJAX para um endpoint de registro no servidor
+
+  // Após o registro bem-sucedido, chame a função showGamePage()
+  showGamePage();
+});
