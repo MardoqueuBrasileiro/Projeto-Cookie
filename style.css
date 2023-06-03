@@ -64,14 +64,38 @@
 }
 
 /* Estilos para a seção do jogo */
-#gameSection {
-  background-color: #000;
-  padding: 100px 0;
-  color: #fff;
-}
+
 
 .gameWrapper {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+}
+
+#gameSection {
+  text-align: center;
+  padding: 50px;
+}
+
+#cookieContainer {
+  margin-bottom: 30px;
+}
+
+#cookie {
+  width: 200px;
+  cursor: pointer;
+}
+
+#scoreContainer {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+#clickButton {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
