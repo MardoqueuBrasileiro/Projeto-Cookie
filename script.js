@@ -66,3 +66,25 @@ document.getElementById('registerForm').addEventListener('submit', function(even
       console.log(error);
     });
 });
+
+// Jogo
+
+// Variáveis globais
+var score = 0;
+
+// Função para atualizar a pontuação exibida na página
+function updateScore() {
+  document.getElementById('score').textContent = score;
+}
+
+// Manipulador de evento para o clique no cookie
+document.getElementById('cookie').addEventListener('click', function() {
+  score++;
+  updateScore();
+});
+
+// Manipulador de evento para o clique no botão de "Clique Aqui!"
+document.getElementById('clickButton').addEventListener('click', function() {
+  score += 10; // Incrementa a pontuação em 10 ao clicar no botão
+  updateScore();
+});
