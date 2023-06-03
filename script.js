@@ -12,20 +12,16 @@ firebase.initializeApp(firebaseConfig);
 
 // Obtenha uma referência para o serviço de autenticação do Firebase
 var auth = firebase.auth();
+// Configure o Firebase com suas credenciais
 
 // Verifica se o usuário está autenticado ao carregar a página
 window.addEventListener('load', function() {
-  if (isUserAuthenticated()) {
-    showGamePage();
-  }
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      showGamePage();
+    }
+  });
 });
-
-// Função para verificar se o usuário está autenticado
-function isUserAuthenticated() {
-  // Implemente aqui a lógica para verificar se o usuário está autenticado
-  // Por exemplo, verificar se há um token de autenticação válido no armazenamento local ou em cookies
-  // Retorne true se o usuário estiver autenticado, ou false caso contrário
-}
 
 // Função para exibir a página do jogo
 function showGamePage() {
@@ -41,11 +37,14 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   var email = document.getElementById('loginEmail').value;
   var password = document.getElementById('loginPassword').value;
 
-  // Execute a lógica de autenticação aqui
-  // Por exemplo, faça uma solicitação AJAX para um endpoint de autenticação no servidor
-
-  // Após a autenticação bem-sucedida, chame a função showGamePage()
-  showGamePage();
+  // Faça login usando o Firebase
+  auth.signInWithEmailAndPassword(email, password)
+    .then(function(userCredential) {
+      showGamePage();
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 });
 
 // Manipulador de evento para o envio do formulário de registro
@@ -56,9 +55,12 @@ document.getElementById('registerForm').addEventListener('submit', function(even
   var email = document.getElementById('registerEmail').value;
   var password = document.getElementById('registerPassword').value;
 
-  // Execute a lógica de registro aqui
-  // Por exemplo, faça uma solicitação AJAX para um endpoint de registro no servidor
-
-  // Após o registro bem-sucedido, chame a função showGamePage()
-  showGamePage();
+  // Registre um novo usuário usando o Firebase
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(function(userCredential) {
+      showGamePage();
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 });
