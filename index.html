@@ -1,54 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jogo Cookie Clicker</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"></script>
-
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-  
+<body>
+  <header>
+    <h1>Jogo Cookie Clicker</h1>
+  </header>
+
   <main>
-  <section id="loginRegisterSection">
-    <div class="container">
-      <div class="loginRegisterWrapper">
-        <div class="loginRegisterContent">
-          <div class="loginRegisterForm">
-            <h2>Login</h2>
-            <form>
-              <input type="email" placeholder="E-mail" required>
-              <input type="password" placeholder="Senha" required>
+    <section id="loginRegisterSection">
+      <div class="container">
+        <div class="form-container">
+          <h2>Login</h2>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="loginEmail">E-mail:</label>
+              <input type="email" id="loginEmail" required>
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Senha:</label>
+              <input type="password" id="loginPassword" required>
+            </div>
+            <div class="form-group">
               <button type="submit">Entrar</button>
-            </form>
-            <p>Não tem uma conta? <a href="#register">Registre-se</a></p>
-          </div>
-          <div class="loginRegisterForm">
-            <h2>Registro</h2>
-            <form>
-              <input type="email" placeholder="E-mail" required>
-              <input type="password" placeholder="Senha" required>
+            </div>
+          </form>
+        </div>
+        <div class="form-container">
+          <h2>Registro</h2>
+          <form id="registerForm">
+            <div class="form-group">
+              <label for="registerEmail">E-mail:</label>
+              <input type="email" id="registerEmail" required>
+            </div>
+            <div class="form-group">
+              <label for="registerPassword">Senha:</label>
+              <input type="password" id="registerPassword" required>
+            </div>
+            <div class="form-group">
               <button type="submit">Registrar</button>
-            </form>
-            <p>Já tem uma conta? <a href="#login">Faça login</a></p>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="gameSection" style="display: none;">
-    <div class="container">
-      <div class="gameWrapper">
+    <section id="gameSection">
+      <div class="container">
+        <h2>Página do jogo</h2>
         <!-- Conteúdo da página do jogo -->
-      </div>
+        <section id="gameSection">
+  <div class="container">
+    <h2>Jogo Cookie Clicker</h2>
+    <div id="cookieContainer">
+      <img src="cookie.png" alt="Cookie" id="cookie" />
     </div>
-  </section>
-</main>
+    <div id="scoreContainer">
+      <span id="score">0</span>
+    </div>
+    <button id="clickButton">Clique Aqui!</button>
+  </div>
+</section>
 
-  
+      </div>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-firestore.js"></script>
   <script src="script.js"></script>
 </body>
+
 </html>
+
 
