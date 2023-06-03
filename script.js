@@ -10,9 +10,11 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+
+
+
 // Obtenha uma referência para o serviço de autenticação do Firebase
 var auth = firebase.auth();
-// Configure o Firebase com suas credenciais
 
 // Verifica se o usuário está autenticado ao carregar a página
 window.addEventListener('load', function() {
