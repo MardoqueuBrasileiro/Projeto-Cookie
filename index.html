@@ -15,10 +15,42 @@
   </header>
   
   <main>
-    <h2>Bem-vindo ao Jogo Cookie Clicker!</h2>
-    <p>Clique no botão para ganhar pontos e avançar no jogo.</p>
-    <button id="cookieButton">Clique Aqui!</button>
-  </main>
+  <section id="loginRegisterSection">
+    <div class="container">
+      <div class="loginRegisterWrapper">
+        <div class="loginRegisterContent">
+          <div class="loginRegisterForm">
+            <h2>Login</h2>
+            <form>
+              <input type="email" placeholder="E-mail" required>
+              <input type="password" placeholder="Senha" required>
+              <button type="submit">Entrar</button>
+            </form>
+            <p>Não tem uma conta? <a href="#register">Registre-se</a></p>
+          </div>
+          <div class="loginRegisterForm">
+            <h2>Registro</h2>
+            <form>
+              <input type="email" placeholder="E-mail" required>
+              <input type="password" placeholder="Senha" required>
+              <button type="submit">Registrar</button>
+            </form>
+            <p>Já tem uma conta? <a href="#login">Faça login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gameSection" style="display: none;">
+    <div class="container">
+      <div class="gameWrapper">
+        <!-- Conteúdo da página do jogo -->
+      </div>
+    </div>
+  </section>
+</main>
+
   
   <script src="script.js"></script>
 </body>
