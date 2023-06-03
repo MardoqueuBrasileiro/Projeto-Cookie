@@ -52,3 +52,27 @@ registerButton.addEventListener('click', function() {
     });
 });
 
+
+// Verifica se o usuário está autenticado ao carregar a página
+window.addEventListener('load', function() {
+  if (isUserAuthenticated()) {
+    showGamePage();
+  }
+});
+
+// Função para verificar se o usuário está autenticado
+function isUserAuthenticated() {
+  // Implemente aqui a lógica para verificar se o usuário está autenticado
+  // Por exemplo, verificar se há um token de autenticação válido no armazenamento local ou em cookies
+  // Retorne true se o usuário estiver autenticado, ou false caso contrário
+}
+
+// Função para exibir a página do jogo
+function showGamePage() {
+  // Ocultar elementos de login e registro
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('registerForm').style.display = 'none';
+
+  // Exibir a página do jogo
+  document.getElementById('gamePage').style.display = 'block';
+}
