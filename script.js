@@ -17,59 +17,29 @@ firebase.initializeApp(firebaseConfig);
 // Obtenha uma referência para o serviço de autenticação do Firebase
 var auth = firebase.auth();
 
-// Função para salvar as informações do usuário no banco de dados
-function saveUserInfo(userId, userInfo) {
-  var userRef = firebase.database().ref('users/' + userId);
-  
-  // Salve as informações do usuário na tabela correspondente
-  userRef.set(userInfo)
-    .then(function() {
-      // As informações foram salvas com sucesso
-    })
-    .catch(function(error) {
-      // Ocorreu um erro ao salvar as informações
-      console.error(error);
-    });
-}
 
-// Função para carregar as informações do usuário do banco de dados
-function loadUserInfo(userId) {
-  var userRef = firebase.database().ref('users/' + userId);
-  
-  // Recupere as informações do usuário da tabela correspondente
-  userRef.once('value')
-    .then(function(snapshot) {
-      var userInfo = snapshot.val();
-      
-      // Faça algo com as informações do usuário recuperadas
-      console.log(userInfo);
-    })
-    .catch(function(error) {
-      // Ocorreu um erro ao carregar as informações
-      console.error(error);
-    });
-}
+// Obtenha uma referência para o banco de dados do Firebase
+var database = firebase.database();
 
-// Manipulador de evento para o envio do formulário de login
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Evita o envio do formulário (comportamento padrão)
-
-  // Obtenha os valores dos campos de entrada de e-mail e senha
-  var email = document.getElementById('loginEmail').value;
-  var password = document.getElementById('loginPassword').value;
-
-  // Execute a lógica de autenticação aqui
-  // Por exemplo, faça uma solicitação AJAX para um endpoint de autenticação no servidor
-  
-  // Após a autenticação bem-sucedida, obtenha o ID do usuário logado
-  var userId = firebase.auth().currentUser.uid;
-  
-  // Carregue as informações do usuário do banco de dados
-  loadUserInfo(userId);
-  
-  // Após a autenticação bem-sucedida, chame a função showGamePage()
-  showGamePage();
+// Verifica se o usuário está autenticado ao carregar a página
+window.addEventListener('load', function() {
+  if (isUserAuthenticated()) {
+    showGamePage();
+  }
 });
+
+// Função para verificar se o usuário está autenticado
+function isUserAuthenticated() {
+  // Implemente aqui a lógica para verificar se o usuário está autenticado
+  // Por exemplo, verificar se há um token de autenticação válido no armazenamento local ou em cookies
+  // Retorne true se o usuário estiver autenticado, ou false caso contrário
+}
+
+// Função para exibir a página do jogo
+function showGamePage() {
+  document.getElementById('loginRegisterSection').style.display = 'none';
+  document.getElementById('gameSection').style.display = 'block';
+}
 
 // Manipulador de evento para o envio do formulário de registro
 document.getElementById('registerForm').addEventListener('submit', function(event) {
@@ -79,40 +49,56 @@ document.getElementById('registerForm').addEventListener('submit', function(even
   var email = document.getElementById('registerEmail').value;
   var password = document.getElementById('registerPassword').value;
 
-  // Crie um novo usuário no Firebase Authentication
+  // Crie o usuário no Firebase Authentication
   auth.createUserWithEmailAndPassword(email, password)
     .then(function(userCredential) {
-      // O registro foi bem-sucedido, o usuário foi criado
-      var user = userCredential.user;
-      var userId = user.uid;
+      // Obtenha o ID do usuário
+      var userId = userCredential.user.uid;
       
-      // Crie uma tabela para o usuário no nó "users"
-      var userRef = firebase.database().ref('users/' + userId);
-      
-      // Salve as informações iniciais do jogador
+      // Crie um objeto de dados iniciais para o usuário
       var initialData = {
+        username: email.split('@')[0], // Use o nome de usuário com base no e-mail
         recursos: {
           ouro: 0,
           gemas: 0
-        }
-        // Outras informações do jogador, se necessário
+        },
+        level: 1
       };
-      
-      // Salve as informações iniciais do jogador no banco de dados
+
+      // Salve as informações iniciais do usuário no banco de dados
+      var userRef = database.ref('users/' + userId);
       userRef.set(initialData)
         .then(function() {
           // As informações iniciais foram salvas com sucesso
+          showGamePage(); // Exiba a página do jogo após o registro
         })
         .catch(function(error) {
           // Ocorreu um erro ao salvar as informações iniciais
           console.error(error);
         });
-      
-      // Após o registro bem-sucedido, chame a função showGamePage()
-      showGamePage();
     })
     .catch(function(error) {
       // Ocorreu um erro durante o registro
+      console.error(error);
+    });
+});
+
+// Manipulador de evento para o envio do formulário de login
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Evita o envio do formulário (comportamento padrão)
+
+  // Obtenha os valores dos campos de entrada de e-mail e senha
+  var email = document.getElementById('loginEmail').value;
+  var password = document.getElementById('loginPassword').value;
+
+  // Faça o login do usuário no Firebase Authentication
+  auth.signInWithEmailAndPassword(email, password)
+    .then(function(userCredential) {
+      // Login bem-sucedido
+      showGamePage(); // Exiba a página do jogo após o login
+    })
+    .catch(function(error) {
+      // Ocorreu um erro durante o login
       console.error(error);
     });
 });
