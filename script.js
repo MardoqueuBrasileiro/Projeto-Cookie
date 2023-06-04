@@ -28,8 +28,11 @@ window.addEventListener('load', function() {
 // Função para exibir a página do jogo
 function showGamePage() {
   document.getElementById('loginRegisterSection').style.display = 'none';
-  document.getElementById('gameSection').style.display = 'block';
+  document.getElementById('gameSection').classList.remove('hidden');
 }
+
+// Resto do seu código...
+
 
 // Manipulador de evento para o envio do formulário de login
 document.getElementById('loginForm').addEventListener('submit', function(event) {
