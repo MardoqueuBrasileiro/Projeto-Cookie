@@ -30,10 +30,17 @@ window.addEventListener('load', function() {
 
 // Função para verificar se o usuário está autenticado
 function isUserAuthenticated() {
-  // Implemente aqui a lógica para verificar se o usuário está autenticado
-  // Por exemplo, verificar se há um token de autenticação válido no armazenamento local ou em cookies
-  // Retorne true se o usuário estiver autenticado, ou false caso contrário
+  // Verifique se existe um usuário atualmente autenticado
+  var user = firebase.auth().currentUser;
+
+  // Se o usuário existir, significa que está autenticado
+  if (user) {
+    return true;
+  } else {
+    return false;
+  }
 }
+
 
 // Função para exibir a página do jogo
 function showGamePage() {
