@@ -2,6 +2,7 @@
 var firebaseConfig = {
   apiKey: "AIzaSyAwLyVDy4foa2D8LZk0vmia2MAbFyVskLE",
   authDomain: "projeto-cookie.firebaseapp.com",
+  databaseURL: "projeto-cookie-default-rtdb.firebaseio.com",
   projectId: "1:26889422861:web:97aa8d128a6738a2e4ad44",
   storageBucket: "projeto-cookie.appspot.com",
   messagingSenderId: "BFKwUNST3F4WKnDB57ezb8kZlQm2cXHGV_LnNFa6K5k0tcLy4_oS1ENFopr82wyp5eAzGdJpO42a-cW1QwVPi-w",
