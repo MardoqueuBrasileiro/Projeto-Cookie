@@ -91,3 +91,24 @@ document.getElementById('clickButton').addEventListener('click', function() {
   score += 10; // Incrementa a pontuação em 10 ao clicar no botão
   updateScore();
 });
+
+
+// Salva as informações do jogador no banco de dados
+function savePlayerInfoToDatabase(playerInfo) {
+  var playersRef = firebase.database().ref('players');
+  playersRef.push(playerInfo)
+    .then(function() {
+      console.log('Informações do jogador salvas com sucesso!');
+    })
+    .catch(function(error) {
+      console.error('Erro ao salvar informações do jogador:', error);
+    });
+}
+
+// Exemplo de uso
+var playerInfo = {
+  name: 'Nome do Jogador',
+  score: 1000
+};
+
+savePlayerInfoToDatabase(playerInfo);
