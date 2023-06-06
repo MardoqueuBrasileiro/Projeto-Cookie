@@ -1,100 +1,72 @@
-/* Estilos globais */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* Estilos do cabeçalho */
 header {
   background-color: #333;
+  color: #fff;
   padding: 20px;
   text-align: center;
 }
 
 h1 {
-  color: #fff;
   margin: 0;
 }
 
-/* Estilos da seção de login e registro */
-#loginRegisterSection {
-  text-align: center;
-  padding: 50px;
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.form-container {
-  display: inline-block;
-  width: 300px;
-  margin: 10px;
+.container {
+  text-align: center;
 }
 
 h2 {
-  margin: 0 0 20px;
+  margin-top: 0;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.resource {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
+.resource-name {
   font-weight: bold;
+  margin-right: 10px;
 }
 
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-}
-
-button[type="submit"] {
-  padding: 10px 20px;
+.resource-amount {
   font-size: 18px;
-  background-color: #4CAF50;
-  color: white;
+}
+
+#actionButtonsContainer {
+  margin-top: 20px;
+}
+
+#sellButtonContainer {
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
   border: none;
+  background-color: #007bff;
+  color: #fff;
   cursor: pointer;
 }
 
-/* Estilos da seção do jogo */
-#gameSection {
-  text-align: center;
-  padding: 50px;
+button:hover {
+  background-color: #0056b3;
 }
 
 .hidden {
   display: none;
 }
-
-#cookieContainer {
-  margin-bottom: 30px;
-}
-
-#cookie {
-  width: 200px;
-  cursor: pointer;
-}
-
-#scoreContainer {
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-#clickButton {
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
- 
