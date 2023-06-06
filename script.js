@@ -42,7 +42,7 @@ function showGamePage() {
 
   // Obter os recursos do jogador
   var userId = firebase.auth().currentUser.uid;
-  var resourcesRef = db.ref('users/' + userId + '/resources');
+  var resourcesRef = db.ref('users/' + userId + '/recursos');
   resourcesRef.on('value', function(snapshot) {
     var resources = snapshot.val();
     updateResources(resources);
@@ -68,7 +68,7 @@ function updateResources(resources) {
 // Função para obter recursos do jogador
 function mineResources() {
   var userId = firebase.auth().currentUser.uid;
-  var resourcesRef = db.ref('users/' + userId + '/resources');
+  var resourcesRef = db.ref('users/' + userId + '/recursos');
   resourcesRef.transaction(function(resources) {
     if (resources) {
       resources.minerals += 1;
@@ -79,7 +79,7 @@ function mineResources() {
 
 function chopResources() {
   var userId = firebase.auth().currentUser.uid;
-  var resourcesRef = db.ref('users/' + userId + '/resources');
+  var resourcesRef = db.ref('users/' + userId + '/recursos');
   resourcesRef.transaction(function(resources) {
     if (resources) {
       resources.wood += 1;
@@ -90,7 +90,7 @@ function chopResources() {
 
 function farmResources() {
   var userId = firebase.auth().currentUser.uid;
-  var resourcesRef = db.ref('users/' + userId + '/resources');
+  var resourcesRef = db.ref('users/' + userId + '/recursos');
   resourcesRef.transaction(function(resources) {
     if (resources) {
       resources.food += 1;
@@ -102,7 +102,7 @@ function farmResources() {
 // Função para vender recursos
 function sellResources() {
   var userId = firebase.auth().currentUser.uid;
-  var resourcesRef = db.ref('users/' + userId + '/resources');
+  var resourcesRef = db.ref('users/' + userId + '/recursos');
   resourcesRef.transaction(function(resources) {
     if (resources) {
       var totalResources = resources.minerals + resources.wood + resources.food;
