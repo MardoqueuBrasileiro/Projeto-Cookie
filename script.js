@@ -14,12 +14,12 @@ firebase.initializeApp(firebaseConfig);
 
 
 
+
 // Obtenha uma referência para o serviço de autenticação do Firebase
 var auth = firebase.auth();
 
-
 // Obtenha uma referência para o banco de dados do Firebase
-var database = firebase.database();
+var db = firebase.database();
 
 // Verifica se o usuário está autenticado ao carregar a página
 window.addEventListener('load', function() {
@@ -30,82 +30,87 @@ window.addEventListener('load', function() {
 
 // Função para verificar se o usuário está autenticado
 function isUserAuthenticated() {
-  // Verifique se existe um usuário atualmente autenticado
-  var user = firebase.auth().currentUser;
-
-  // Se o usuário existir, significa que está autenticado
-  if (user) {
-    return true;
-  } else {
-    return false;
-  }
+  // Implemente aqui a lógica para verificar se o usuário está autenticado
+  // Por exemplo, verificar se há um token de autenticação válido no armazenamento local ou em cookies
+  // Retorne true se o usuário estiver autenticado, ou false caso contrário
 }
-
 
 // Função para exibir a página do jogo
 function showGamePage() {
   document.getElementById('loginRegisterSection').style.display = 'none';
   document.getElementById('gameSection').style.display = 'block';
+
+  // Obter os recursos do jogador
+  var userId = firebase.auth().currentUser.uid;
+  var resourcesRef = db.ref('users/' + userId + '/resources');
+  resourcesRef.on('value', function(snapshot) {
+    var resources = snapshot.val();
+    updateResources(resources);
+  });
+
+  // Configurar os eventos de obtenção de recursos
+  document.getElementById('mineButton').addEventListener('click', mineResources);
+  document.getElementById('chopButton').addEventListener('click', chopResources);
+  document.getElementById('farmButton').addEventListener('click', farmResources);
+
+  // Configurar o evento de venda de recursos
+  document.getElementById('sellButton').addEventListener('click', sellResources);
 }
 
-// Manipulador de evento para o envio do formulário de registro
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Evita o envio do formulário (comportamento padrão)
+// Função para atualizar a exibição dos recursos na tela
+function updateResources(resources) {
+  document.getElementById('mineralAmount').textContent = resources.minerals;
+  document.getElementById('woodAmount').textContent = resources.wood;
+  document.getElementById('foodAmount').textContent = resources.food;
+  document.getElementById('goldAmount').textContent = resources.gold;
+}
 
-  // Obtenha os valores dos campos de entrada de e-mail e senha
-  var email = document.getElementById('registerEmail').value;
-  var password = document.getElementById('registerPassword').value;
+// Função para obter recursos do jogador
+function mineResources() {
+  var userId = firebase.auth().currentUser.uid;
+  var resourcesRef = db.ref('users/' + userId + '/resources');
+  resourcesRef.transaction(function(resources) {
+    if (resources) {
+      resources.minerals += 1;
+    }
+    return resources;
+  });
+}
 
-  // Crie o usuário no Firebase Authentication
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(function(userCredential) {
-      // Obtenha o ID do usuário
-      var userId = userCredential.user.uid;
-      
-      // Crie um objeto de dados iniciais para o usuário
-      var initialData = {
-        username: email.split('@')[0], // Use o nome de usuário com base no e-mail
-        recursos: {
-          ouro: 0,
-          gemas: 0
-        },
-        level: 1
-      };
+function chopResources() {
+  var userId = firebase.auth().currentUser.uid;
+  var resourcesRef = db.ref('users/' + userId + '/resources');
+  resourcesRef.transaction(function(resources) {
+    if (resources) {
+      resources.wood += 1;
+    }
+    return resources;
+  });
+}
 
-      // Salve as informações iniciais do usuário no banco de dados
-      var userRef = database.ref('users/' + userId);
-      userRef.set(initialData)
-        .then(function() {
-          // As informações iniciais foram salvas com sucesso
-          showGamePage(); // Exiba a página do jogo após o registro
-        })
-        .catch(function(error) {
-          // Ocorreu um erro ao salvar as informações iniciais
-          console.error(error);
-        });
-    })
-    .catch(function(error) {
-      // Ocorreu um erro durante o registro
-      console.error(error);
-    });
-});
+function farmResources() {
+  var userId = firebase.auth().currentUser.uid;
+  var resourcesRef = db.ref('users/' + userId + '/resources');
+  resourcesRef.transaction(function(resources) {
+    if (resources) {
+      resources.food += 1;
+    }
+    return resources;
+  });
+}
 
-// Manipulador de evento para o envio do formulário de login
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Evita o envio do formulário (comportamento padrão)
-
-  // Obtenha os valores dos campos de entrada de e-mail e senha
-  var email = document.getElementById('loginEmail').value;
-  var password = document.getElementById('loginPassword').value;
-
-  // Faça o login do usuário no Firebase Authentication
-  auth.signInWithEmailAndPassword(email, password)
-    .then(function(userCredential) {
-      // Login bem-sucedido
-      showGamePage(); // Exiba a página do jogo após o login
-    })
-    .catch(function(error) {
-      // Ocorreu um erro durante o login
-      console.error(error);
-    });
-});
+// Função para vender recursos
+function sellResources() {
+  var userId = firebase.auth().currentUser.uid;
+  var resourcesRef = db.ref('users/' + userId + '/resources');
+  resourcesRef.transaction(function(resources) {
+    if (resources) {
+      var totalResources = resources.minerals + resources.wood + resources.food;
+      resources.gold += totalResources;
+      resources.minerals = 0;
+      resources.wood = 0;
+      resources.food = 0;
+    }
+    return resources;
+  });
+}
