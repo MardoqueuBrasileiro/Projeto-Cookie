@@ -4,75 +4,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jogo Cookie Clicker</title>
+  <title>Jogo Minecraft</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <header>
-    <h1>Jogo Cookie Clicker</h1>
+    <h1>Jogo Minecraft</h1>
   </header>
 
   <main>
     <section id="loginRegisterSection">
+      <!-- Seção de Login e Registro -->
+    </section>
+
+    <section id="gameSection" class="hidden">
       <div class="container">
-        <div class="form-container">
-          <h2>Login</h2>
-          <form id="loginForm">
-            <div class="form-group">
-              <label for="loginEmail">E-mail:</label>
-              <input type="email" id="loginEmail" required>
-            </div>
-            <div class="form-group">
-              <label for="loginPassword">Senha:</label>
-              <input type="password" id="loginPassword" required>
-            </div>
-            <div class="form-group">
-              <button type="submit">Entrar</button>
-            </div>
-          </form>
+        <h2>Jogo Minecraft</h2>
+
+        <!-- Recursos -->
+        <div id="resourcesContainer">
+          <div class="resource">
+            <span class="resource-name">Minerais:</span>
+            <span id="mineralAmount" class="resource-amount">0</span>
+          </div>
+          <div class="resource">
+            <span class="resource-name">Madeira:</span>
+            <span id="woodAmount" class="resource-amount">0</span>
+          </div>
+          <div class="resource">
+            <span class="resource-name">Alimentos:</span>
+            <span id="foodAmount" class="resource-amount">0</span>
+          </div>
+          <div class="resource">
+            <span class="resource-name">Ouro:</span>
+            <span id="goldAmount" class="resource-amount">0</span>
+          </div>
         </div>
-        <div class="form-container">
-          <h2>Registro</h2>
-          <form id="registerForm">
-            <div class="form-group">
-              <label for="registerEmail">E-mail:</label>
-              <input type="email" id="registerEmail" required>
-            </div>
-            <div class="form-group">
-              <label for="registerPassword">Senha:</label>
-              <input type="password" id="registerPassword" required>
-            </div>
-            <div class="form-group">
-              <button type="submit">Registrar</button>
-            </div>
-          </form>
+
+        <!-- Botões de Obtenção de Recursos -->
+        <div id="actionButtonsContainer">
+          <button id="mineButton">Minerar</button>
+          <button id="chopButton">Cortar Madeira</button>
+          <button id="farmButton">Plantar Alimentos</button>
+        </div>
+
+        <!-- Botão de Vender Recursos -->
+        <div id="sellButtonContainer">
+          <button id="sellButton">Vender Recursos</button>
         </div>
       </div>
     </section>
-
-      <section id="gameSection" style="display: none;">
-  <div class="container">
-    <h2>Jogo Cookie Clicker</h2>
-    <div id="cookieContainer">
-      <img src="cookie.png" alt="Cookie" id="cookie" />
-    </div>
-    <div id="scoreContainer">
-      <span id="score">0</span>
-    </div>
-    <button id="clickButton">Clique Aqui!</button>
-  </div>
-</section>
-
   </main>
 
   <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
   <script src="script.js"></script>
 </body>
 
 </html>
+
+
+
+
 
 
